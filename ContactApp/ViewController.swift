@@ -10,6 +10,7 @@ import Contacts
 import ContactsUI
 
 class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataSource,UITableViewDelegate {
+
     var models: [Person] = []
 
     private lazy var table: UITableView = {
@@ -17,15 +18,33 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         table.frame = view.bounds
         table.dataSource = self
         table.delegate = self
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        table.register(TableCell.self, forCellReuseIdentifier: "TableCell")
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
+    }()
+
+    private lazy var emptyLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.text = "Empty List"
+        label.textColor = .red
+        label.font = UIFont(name: "Helvetica", size: 36)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
+    }
+
+    private func setUpUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         self.view.addSubview(table)
+        self.view.addSubview(emptyLabel)
+        emptyLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        emptyLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 
+        table.tableFooterView = UIView()
     }
 
     @objc func addButtonTapped(){
@@ -39,7 +58,7 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         let identifier = contact.identifier
         let model = Person(name: name, id: identifier, source: contact)
         models.append(model)
-        table.reloadData()
+        self.reloadTable()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,8 +66,8 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = models[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableCell
+        cell.updateCell(person: models[indexPath.row])
         return cell
     }
 
@@ -59,6 +78,19 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
 
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 
+    private func reloadTable() {
+        if models.count > 0 {
+            table.isHidden = false
+            emptyLabel.isHidden = true
+        }else{
+            table.isHidden = true
+            emptyLabel.isHidden = false
+        }
+        table.reloadData()
+    }
 }
 
