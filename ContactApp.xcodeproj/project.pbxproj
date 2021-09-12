@@ -62,9 +62,9 @@
 			children = (
 				E866559B26ED4DCF00AD8CDB /* Cell */,
 				E841B7B526ECC21400733718 /* Model */,
+				E87B225C26EE080700862344 /* ViewController */,
 				E820422C26EC0CCC00332F74 /* AppDelegate.swift */,
 				E820422E26EC0CCC00332F74 /* SceneDelegate.swift */,
-				E820423026EC0CCC00332F74 /* ViewController.swift */,
 				E820423226EC0CCC00332F74 /* Main.storyboard */,
 				E820423526EC0CD500332F74 /* Assets.xcassets */,
 				E820423726EC0CD500332F74 /* LaunchScreen.storyboard */,
@@ -87,6 +87,14 @@
 				E866559C26ED4DDF00AD8CDB /* TableCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		E87B225C26EE080700862344 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E820423026EC0CCC00332F74 /* ViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 29JK24NZ4B;
 				INFOPLIST_FILE = ContactApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,6 +341,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 29JK24NZ4B;
 				INFOPLIST_FILE = ContactApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

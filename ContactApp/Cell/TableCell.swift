@@ -27,6 +27,7 @@ class TableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+//MARK: - Set Up UI
     private func setUpUI() {
         self.contentView.addSubview(label)
         label.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0).isActive = true
@@ -35,6 +36,7 @@ class TableCell: UITableViewCell {
         label.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 0).isActive = true
     }
 
+//MARK: - Update Cell
     func updateCell(person: Person){
         label.text = person.name
     }

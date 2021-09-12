@@ -32,11 +32,12 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         return label
     }()
 
+//MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
     }
-
+//MARK: - Set Up UI
     private func setUpUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         self.view.addSubview(table)
@@ -47,12 +48,7 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         table.tableFooterView = UIView()
     }
 
-    @objc func addButtonTapped(){
-        let vc = CNContactPickerViewController()
-        vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
-    }
-
+//MARK: - Contact Picker
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         let name = contact.givenName + " " + contact.familyName
         let identifier = contact.identifier
@@ -61,6 +57,7 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         self.reloadTable()
     }
 
+//MARK: - TableView Delegate & Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         models.count
     }
@@ -76,8 +73,8 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         let contact = models[indexPath.row].source
         let vc = CNContactViewController(for: contact)
         self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
@@ -92,5 +89,11 @@ class ViewController: UIViewController, CNContactPickerDelegate,UITableViewDataS
         }
         table.reloadData()
     }
-}
+//MARK: - Actions
+    @objc func addButtonTapped(){
+        let vc = CNContactPickerViewController()
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
 
+}
